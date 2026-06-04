@@ -14,11 +14,13 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 public class User {
-    @GeneratedValue
+
     @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
     private String firstName;
     private String lastName;
+    @Column(unique = true, nullable = false)
     private String email;
     private String mobileNumber;
     private String password;

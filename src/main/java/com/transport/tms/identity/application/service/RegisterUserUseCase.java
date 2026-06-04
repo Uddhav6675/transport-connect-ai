@@ -24,7 +24,7 @@ public class RegisterUserUseCase {
             throw new RuntimeException("User already exists");
         }
         User user = new User();
-        user.setId(UUID.randomUUID());
+
         user.setFirstName(command.firstName());
         user.setLastName(command.lastName());
         user.setEmail(command.email());

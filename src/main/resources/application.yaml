@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/transport-connect-ai
+    url: jdbc:postgresql://localhost:5432/transport_connect_ai
     username: postgres
     password: postgres
 
@@ -9,6 +9,6 @@ spring:
       ddl-auto: validate
 
   flyway:
-    enable: true
+    enabled: true
   application:
     name: transport-connect-ai
