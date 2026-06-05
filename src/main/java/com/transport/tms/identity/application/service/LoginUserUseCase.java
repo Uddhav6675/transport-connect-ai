@@ -1,9 +1,8 @@
 package com.transport.tms.identity.application.service;
 
-import com.transport.security.JwtService;
-import com.transport.security.JwtService1;
 import com.transport.tms.identity.domain.model.User;
 import com.transport.tms.identity.infrastructure.persistence.UserJpaRepository;
+import com.transport.tms.identity.infrastructure.security.JwtService;
 import com.transport.tms.identity.interfaces.rest.request.LoginRequest;
 import com.transport.tms.identity.interfaces.rest.response.LoginResponse;
 import lombok.RequiredArgsConstructor;

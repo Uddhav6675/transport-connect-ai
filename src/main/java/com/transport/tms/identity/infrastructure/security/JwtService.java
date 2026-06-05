@@ -1,4 +1,4 @@
-package com.transport.security;
+package com.transport.tms.identity.infrastructure.security;
 
 import com.transport.tms.identity.domain.model.User;
 import io.jsonwebtoken.Claims;
