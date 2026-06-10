@@ -1,3 +1,20 @@
 spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/transport_connect_ai
+    username: postgres
+    password: postgres
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+
+  flyway:
+    enabled: true
   application:
     name: transport-connect-ai
+
+jwt:
+  secret: myVeryLongSecretKeyForJwtTokenGeneration123456789
+  expiration: 86400000
+#  3600000 = 1 hour in millisec
+
