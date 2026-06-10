@@ -1,5 +1,6 @@
 package com.transport.security;
 
+import ch.qos.logback.core.net.SyslogOutputStream;
 import com.transport.tms.identity.infrastructure.security.JwtService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -24,6 +25,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+        System.out.println("REQUEST URI =" + request.getRequestURI());
+        System.out.println("AUTH: " + request.getHeader("Authorization"));
         String authHeader = request.getHeader("Authorization");
 
         if (authHeader == null || !authHeader.startsWith("Bearer")){

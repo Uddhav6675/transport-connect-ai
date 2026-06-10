@@ -3,6 +3,7 @@ package com.transport.security;
 import com.transport.tms.identity.domain.model.User;
 import com.transport.tms.identity.infrastructure.persistence.UserJpaRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -17,11 +18,13 @@ public class CustomUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
          User user = repository.findByEmail(email)
                  .orElseThrow(()-> new UsernameNotFoundException("User not found"));
-        return org.springframework.security.core.userdetails.User
-                .builder()
-                .username(user.getEmail())
-                .password(user.getPassword())
-                .roles(user.getRole().name())
-                .build();
+        return new CustomerUserDetails(
+                user.getId(),
+                user.getEmail(),
+                user.getPassword(),
+                java.util.List.of(new SimpleGrantedAuthority(
+                        "ROLE_" + user.getRole().name()
+                ))
+        );
     }
 }
