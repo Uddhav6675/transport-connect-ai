@@ -1,0 +1,17 @@
+CREATE TABLE drivers (
+    id UUID PRIMARY KEY,
+
+    owner_id UUID NOT NULL,
+
+    name VARCHAR(255) NOT NULL,
+
+    mobile VARCHAR(20) NOT NULL UNIQUE,
+
+    license_number VARCHAR(100) NOT NULL UNIQUE,
+
+    status VARCHAR(30) NOT NULL,
+
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);

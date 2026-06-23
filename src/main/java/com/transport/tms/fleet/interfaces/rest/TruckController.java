@@ -7,7 +7,7 @@ import com.transport.tms.fleet.application.service.GetTruckByIdUseCase;
 import com.transport.tms.fleet.application.service.UpdateTruckStatusUseCase;
 import com.transport.tms.fleet.domain.model.Truck;
 import com.transport.tms.fleet.interfaces.rest.request.CreateTruckRequest;
-import com.transport.tms.fleet.interfaces.rest.request.rest.UpdateTruckStatusRequest;
+import com.transport.tms.fleet.interfaces.rest.request.UpdateTruckStatusRequest;
 import com.transport.tms.fleet.interfaces.rest.response.TruckResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -66,7 +66,7 @@ public class TruckController {
     public TruckResponse updateStatus(@PathVariable UUID truckId,
                                       @RequestBody UpdateTruckStatusRequest request){
         Truck truck = updateTruckStatusUseCase.execute(truckId,
-                request.status());
+                String.valueOf(request.status()));
 
         return new TruckResponse(
                 truck.getId(),
