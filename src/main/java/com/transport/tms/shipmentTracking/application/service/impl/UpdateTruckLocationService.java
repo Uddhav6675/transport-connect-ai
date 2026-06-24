@@ -3,6 +3,8 @@ package com.transport.tms.shipmentTracking.application.service.impl;
 import com.transport.common.exception.ResourceNotFoundException;
 import com.transport.tms.fleet.domain.repository.TruckRepository;
 import com.transport.tms.shipmentTracking.application.service.UpdateTruckLocationUseCase;
+import com.transport.tms.shipmentTracking.domain.event.TruckLocationEventPublisher;
+import com.transport.tms.shipmentTracking.domain.event.TruckLocationUpdatedEvent;
 import com.transport.tms.shipmentTracking.domain.model.TrackingLocation;
 import com.transport.tms.shipmentTracking.domain.repository.LatestTrackingLocationCache;
 import com.transport.tms.shipmentTracking.domain.repository.TrackingLocationRepository;
@@ -19,6 +21,7 @@ public class UpdateTruckLocationService implements UpdateTruckLocationUseCase {
     private final TruckRepository truckRepository;
     private final TrackingLocationRepository trackingLocationRepository;
     private final LatestTrackingLocationCache latestTrackingLocationCache;
+    private final TruckLocationEventPublisher truckLocationEventPublisher;
 
     @Override
     public void update(UUID truckId, BigDecimal latitude, BigDecimal longitude) {
@@ -34,5 +37,8 @@ public class UpdateTruckLocationService implements UpdateTruckLocationUseCase {
 
         TrackingLocation savedLocation = trackingLocationRepository.save(location);
         latestTrackingLocationCache.save(savedLocation);
+        truckLocationEventPublisher.publish(
+                TruckLocationUpdatedEvent.from(savedLocation)
+        );
     }
 }
