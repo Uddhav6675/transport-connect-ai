@@ -16,6 +16,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class RedisLatestTrackingLocationCache implements LatestTrackingLocationCache {
 
+    // Example Redis key: tracking:latest:7422a7c8-f566-4228-8ce7-6766cd7148a2
     private static final String KEY_PREFIX = "tracking:latest:";
     private static final String ID = "id";
     private static final String TRUCK_ID = "truckId";
@@ -29,6 +30,7 @@ public class RedisLatestTrackingLocationCache implements LatestTrackingLocationC
     public void save(TrackingLocation location) {
         String key = buildKey(location.getTruckId());
 
+        // Store the latest location as a Redis hash so each field can be inspected clearly.
         redisTemplate.opsForHash().putAll(
                 key,
                 Map.of(
@@ -45,6 +47,7 @@ public class RedisLatestTrackingLocationCache implements LatestTrackingLocationC
     public Optional<TrackingLocation> findByTruckId(UUID truckId) {
         String key = buildKey(truckId);
 
+        // Redis returns string-like values from the hash; we convert them back to domain types below.
         Map<Object, Object> values = redisTemplate.opsForHash().entries(key);
 
         if (values.isEmpty()) {
@@ -63,6 +66,7 @@ public class RedisLatestTrackingLocationCache implements LatestTrackingLocationC
     }
 
     private String buildKey(UUID truckId) {
+        // One Redis key per truck means each update overwrites only that truck's latest location.
         return KEY_PREFIX + truckId;
     }
 }
