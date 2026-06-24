@@ -23,4 +23,5 @@ public class UpdateTruckStatusUseCase {
         return truckRepository.save(truck);
     }
 
+
 }

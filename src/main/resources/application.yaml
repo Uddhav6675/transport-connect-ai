@@ -4,6 +4,22 @@ spring:
     username: postgres
     password: postgres
 
+  data:
+    redis:
+      host: localhost
+      port: 6379
+
+  kafka:
+    bootstrap-servers: localhost:9092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      properties:
+        spring.json.add.type.headers: false
+        max.block.ms: 3000
+        request.timeout.ms: 3000
+        delivery.timeout.ms: 5000
+
   jpa:
     hibernate:
       ddl-auto: validate
@@ -18,3 +34,7 @@ jwt:
   expiration: 86400000
 #  3600000 = 1 hour in millisec
 
+app:
+  kafka:
+    topics:
+      truck-location-updated: truck-location-updated

@@ -1,7 +1,7 @@
 package com.transport.tms.load.domain.enums;
 
 public enum LoadStatus {
-    CREATED,
+    AVAILABLE,
     OPEN,
     ASSIGNED,
     IN_TRANSIT,
